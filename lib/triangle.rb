@@ -12,10 +12,11 @@ class Triangle
     case
     when self.illegal
       raise TriangleError
-    when self.sides.uniq != self.sides
+    when self.sides.uniq.count == 1
       # self.side1 == self.side2 && self.side1 == self.side3
       :equilateral
-    when self.side1 == self.side2 || self.side1 == self.side3 || self.side2 == self.side3
+    when self.sides.uniq.count == 2
+      # self.side1 == self.side2 || self.side1 == self.side3 || self.side2 == self.side3
       :isosceles
     else
       :scalene

@@ -2,32 +2,31 @@ require 'pry'
 
 class Triangle
 
-  attr_accessor :side_one, :side_two, :side_three, :equilateral, :isosceles, :scalene, :array
+  attr_accessor :s1, :s2, :s3
 
-  def initialize(side_one, side_two, side_three)
-    @side_one = side_one
-    @side_two = side_two
-    @side_three = side_three
-    @array = [@side_one, @side_two, @side_three].sort
+  def initialize(s1, s2, s3)
+    @s1 = s1
+    @s2 = s2
+    @s3 = s3
   end
 
 
   def invalid_triangle
-    if (@array[0]+@array[1]) <= @array[2] || @array.map {|side| side <= 0}.include?(true)
+    if @s1 <= 0 || @s2 <= 0 || @s3 <= 0
       raise TriangleError
-    elsif @array.include?(0)
+    elsif @s1+@s2<=@s3 || @s2+@s3<=@s1 || @s1+@s3<=@s2
       raise TriangleError
     end
   end
 
 
   def kind
-    binding.pry
-    if @side_one == @side_two && @side_two == @side_three
+    #binding.pry\
+    if self.invalid_triangle
+    elsif @s1 == @s2 && @s2 == @s3
       :equilateral
-    elsif @array[0] == @array[1] || @array[1] == @array[2]
+    elsif @s1 == @s2 || @s2 == @s3 || @s3 == @s1
       :isosceles
-    elsif self.invalid_triangle
     else
       :scalene
     end
